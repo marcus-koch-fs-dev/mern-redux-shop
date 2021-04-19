@@ -1,0 +1,32 @@
+{
+  "name": "mern-redux-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server":"nodemon backend/server.js",
+    "client":"npm start --prefix frontend",
+    "dev":"concurrently \"npm run server\" \"npm run client\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcus-koch/mern-redux-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcus-koch/mern-redux-shop/issues"
+  },
+  "homepage": "https://github.com/marcus-koch/mern-redux-shop#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.4"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.2",
+    "nodemon": "^2.0.7"
+  }
+}
