@@ -1,0 +1,16 @@
+@import './reset';
+
+:root {
+  // Sections
+  --var-bg-color-main-primary: white;
+  --var-bg-color-main-primary: lightgray;
+  --var-bg-color-header-primary: orange;
+  --var-bg-color-footer-primary: orange;
+  // Hover
+  --var-color-hover-header: orange;
+  --var-bg-color-hover-title: black;
+  --var-bg-color-hover-content: gray;
+
+  // Fonts
+  --var-color-header: white;
+}
