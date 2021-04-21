@@ -3,7 +3,7 @@ import Navbar from './components/UI/Navbar/Navbar'
 import HomeScreen from './pages/HomeScreen'
 import ProductScreen from './pages/ProductScreen'
 import CartScreen from './pages/CartScreen'
-import './App.css'
+import './App.scss'
 
 function App() {
   return (
