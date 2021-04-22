@@ -1,4 +1,4 @@
-@import '../../../assets/sass/_base.scss';
+@import '../../assets/sass/base';
 
 .navbar {
   width: 100%;
@@ -67,7 +67,7 @@
     }
 
     .shop__link {
-      background-color: #333;
+      color: #171717;
     }
   }
 

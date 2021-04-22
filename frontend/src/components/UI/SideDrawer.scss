@@ -1,0 +1,82 @@
+@import '../../assets/sass/base';
+
+.sidedrawer {
+  width: 70%;
+  height: 100vh;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: all 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &.show {
+    transform: translateX(0);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+
+    > li {
+      display: flex;
+      align-items: center;
+      //   padding-left: 1.5rem;
+
+      > a {
+        color: #171717;
+        font-size: 1.6rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+        padding: 1rem;
+
+        &:hover {
+          background-color: #171717;
+          color: #f4f4f4;
+        }
+
+        > span {
+          display: flex;
+          align-items: center;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
+  &__item {
+    .cart__badge {
+      width: 30px;
+      height: 30px;
+      background-color: #171717;
+      border-radius: 50%;
+      margin-left: 8px;
+      color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      .cart__badge {
+        background-color: #f4f4f4;
+        color: #171717;
+      }
+    }
+  }
+}
+@media (min-width: 960px) {
+  .sidedrawer {
+    display: none;
+  }
+}
