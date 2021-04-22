@@ -1,17 +1,22 @@
+import { useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Navbar from './components/UI/Navbar/Navbar'
+import Navbar from './components/UI/Navbar'
 import HomeScreen from './pages/HomeScreen'
 import ProductScreen from './pages/ProductScreen'
 import CartScreen from './pages/CartScreen'
+import Backdrop from './components/UI/Backdrop'
+import SideDrawer from './components/UI/SideDrawer'
 import './App.scss'
 
 function App() {
+  const [sideToggle, setSideToggle] = useState(false)
+
   return (
     <div className="app">
-      <Navbar />
-      {/* SideDrawer */}
+      <Navbar click={() => setSideToggle(true)} />
 
-      {/* Backdrop */}
+      <SideDrawer show={sideToggle} click={() => setSideToggle(false)} />
+      <Backdrop show={sideToggle} click={() => setSideToggle(false)} />
 
       <main>
         <Switch>

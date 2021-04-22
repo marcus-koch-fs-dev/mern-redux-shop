@@ -1,1 +1,13 @@
 @import '../assets/sass/base';
+
+.homescreen {
+  max-width: 1300px;
+  margin: 1rem auto;
+
+  &__title {
+    font-size: 1.5rem;
+    color: #171717;
+    margin-bottom: 1rem;
+    margin-left: 8px;
+  }
+}
