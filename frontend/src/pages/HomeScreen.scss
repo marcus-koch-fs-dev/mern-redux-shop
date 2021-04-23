@@ -10,4 +10,31 @@
     margin-bottom: 1rem;
     margin-left: 8px;
   }
+
+  &__product {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 1232px) {
+    .homescreen {
+      &__product {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+  @media (max-width: 950px) {
+    .homescreen {
+      &__product {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+  @media (max-width: 630px) {
+    .homescreen {
+      &__product {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
 }
