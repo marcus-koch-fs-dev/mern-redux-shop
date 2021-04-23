@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Navbar from './components/UI/Navbar'
+import './App.scss'
+
+// Screens
 import HomeScreen from './pages/HomeScreen'
 import ProductScreen from './pages/ProductScreen'
 import CartScreen from './pages/CartScreen'
+
+// Components
+import Navbar from './components/UI/Navbar'
 import Backdrop from './components/UI/Backdrop'
 import SideDrawer from './components/UI/SideDrawer'
-import './App.scss'
 
 function App() {
   const [sideToggle, setSideToggle] = useState(false)
@@ -17,7 +21,6 @@ function App() {
 
       <SideDrawer show={sideToggle} click={() => setSideToggle(false)} />
       <Backdrop show={sideToggle} click={() => setSideToggle(false)} />
-
       <main>
         <Switch>
           <Route exact path="/" component={HomeScreen} />
