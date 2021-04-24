@@ -10,7 +10,7 @@
   padding: 1.5rem 1rem;
   z-index: 50;
 
-  &__logo {
+  .navbar__logo {
     h2 {
       color: black;
       font-size: 1.4rem;
@@ -18,7 +18,7 @@
     }
   }
 
-  &__list {
+  .navbar__list {
     display: flex;
     align-items: center;
 
@@ -40,7 +40,7 @@
     }
   }
 
-  &__item {
+  .navbar__item {
     .cart__link {
       background-color: #333;
       padding: 10px;
@@ -71,7 +71,7 @@
     }
   }
 
-  &__hamburger-menu {
+  .navbar__hamburger-menu {
     width: 30px;
     height: 30px;
     display: none;
