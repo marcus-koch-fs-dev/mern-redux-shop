@@ -2,18 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Product.scss'
 
-const Products = () => {
+const Products = ({ imageUrl, name, price, description, productId }) => {
   return (
     <div className="product">
-      <img
-        src="https://images.unsplash.com/photo-1519183071298-a2962feb14f4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-        alt="product_image"
-      />
+      <img src={imageUrl} alt="product_image" />
       <div className="product__info">
-        <p className="info__name">Product name</p>
-        <p className="info__description">bla bla bla</p>
-        <p className="info__price">5000€</p>
-        <Link to={`/product/${1111}`} className="info__button">
+        <p className="info__name">{name}</p>
+        <p className="info__description">{description.substring(0, 100)}...</p>
+        <p className="info__price">{price}€</p>
+        <Link to={`/product/${productId}`} className="info__button">
           Go to product
         </Link>
       </div>
