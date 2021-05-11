@@ -3,18 +3,14 @@ const ErrorResponse = require('../utils/errorResponse')
 
 exports.register = async (req, res, next) => {
   const { username, email, password } = req.body
-  console.log(username, email)
   try {
     const user = await User.create({
       username,
       email,
       password,
     })
-    // 201 Created
-    res.status(201).json({
-      success: true,
-      user: user,
-    })
+
+    sendToken(user, 201, res)
   } catch (error) {
     next(error)
   }
@@ -41,19 +37,41 @@ exports.login = async (req, res, next) => {
       return next(new ErrorResponse('Invalid credentials', 401))
     }
 
-    res.status(200).json({
-      success: true,
-      token: 'sajflafj',
-    })
+    sendToken(user, 200, res)
   } catch (error) {
     return next(new ErrorResponse(error.message, 500))
   }
 }
 
-exports.forgotPassword = (req, res, next) => {
-  res.send('forgot Password Route')
+exports.forgotPassword = async (req, res, next) => {
+  const { email } = req.body
+
+  try {
+    const user = await User.findOne({ email })
+
+    if (!email) {
+      return next(new ErrorResponse('Email could not be sent', 404))
+    }
+
+    const resetToken = user.getResetPasswordToken()
+
+    await user.save()
+
+    const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`
+
+    const message = `
+    <h1>You have requested a password reset</h1>
+    <p>Please click on this link to reset your password</p>
+    <a href=${resetUrl} clicktracking = off>${resetUrl}</a>
+    `
+  } catch (error) {}
 }
 
 exports.resetPassword = (req, res, next) => {
   res.send('Reset Password Route')
+}
+
+const sendToken = (user, statusCode, res) => {
+  const token = user.getSignedToken()
+  res.status(statusCode).json({ success: true, token })
 }
