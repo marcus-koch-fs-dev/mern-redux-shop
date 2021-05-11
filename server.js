@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({ path: './config/.env' })
 const path = require('path')
 const express = require('express')
 const connectDB = require('./config/db')
@@ -7,12 +7,14 @@ const errorHandler = require('./middleware/error')
 // Routes
 const productRoutes = require('./routes/productRoutes')
 const authRoutes = require('./routes/authRoutes')
+const privateRoutes = require('./routes/privateRoutes')
 
 connectDB()
 const app = express()
 
 app.use(express.json())
 app.use('/api/auth', authRoutes)
+app.use('/api/private', privateRoutes)
 app.use('/api/products', productRoutes)
 // on last position
 app.use(errorHandler)
