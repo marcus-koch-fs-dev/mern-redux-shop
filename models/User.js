@@ -44,7 +44,7 @@ userSchema.methods.matchPassword = async function (password) {
   return await bcryptjs.compare(password, this.password)
 }
 
-userSchema.methods.getSignedToken = function () {
+userSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   })
@@ -57,9 +57,11 @@ userSchema.methods.getResetPasswordToken = function () {
     .createHash('sha256')
     .update(resetToken)
     .digest('hex')
-}
 
-this.resetPasswordExpire = Date.now() + 10 * (60 * 1000)
+  this.resetPasswordExpire = Date.now() + 10 * (60 * 1000)
+
+  return resetToken
+}
 
 const User = mongoose.model('User', userSchema)
 module.exports = User

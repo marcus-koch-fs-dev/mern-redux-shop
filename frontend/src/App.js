@@ -6,6 +6,10 @@ import './App.scss'
 import HomeScreen from './pages/HomeScreen'
 import ProductScreen from './pages/ProductScreen'
 import CartScreen from './pages/CartScreen'
+import LoginScreen from './pages/auth/LoginScreen'
+import RegisterScreen from './pages/auth/RegisterScreen'
+import ForgotPasswordScreen from './pages/auth/ForgotPasswordScreen'
+import ResetPassword from './pages/auth/ResetPassword'
 
 // Components
 import Navbar from './components/UI/Navbar'
@@ -24,6 +28,18 @@ function App() {
       <main>
         <Switch>
           <Route exact path="/" component={HomeScreen} />
+          <Route exact path="/login" component={LoginScreen} />
+          <Route exact path="/register" component={RegisterScreen} />
+          <Route
+            exact
+            path="/forgotPassword"
+            component={ForgotPasswordScreen}
+          />
+          <Route
+            exact
+            path="/resetPassword/:resetToken"
+            component={ResetPassword}
+          />
           <Route exact path="/product/:id" component={ProductScreen} />
           <Route exact path="/cart" component={CartScreen} />
         </Switch>

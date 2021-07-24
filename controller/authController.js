@@ -1,5 +1,7 @@
+const crypto = require('crypto')
 const User = require('../models/User')
 const ErrorResponse = require('../utils/errorResponse')
+const sendEmail = require('../utils/sendEmail')
 
 exports.register = async (req, res, next) => {
   const { username, email, password } = req.body
@@ -59,19 +61,65 @@ exports.forgotPassword = async (req, res, next) => {
 
     const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`
 
-    const message = `
-    <h1>You have requested a password reset</h1>
+    const message = `<h1>You have requested a password reset</h1>
     <p>Please click on this link to reset your password</p>
-    <a href=${resetUrl} clicktracking = off>${resetUrl}</a>
-    `
-  } catch (error) {}
+    <a href=${resetUrl} clicktracking = off>${resetUrl}</a>`
+
+    try {
+      await sendEmail({
+        to: user.email,
+        subject: 'Reset Password Request',
+        text: message,
+      })
+      res.status(200).json({ success: true, data: 'Email sent' })
+    } catch (error) {
+      console.log('Error after')
+      user.resetPasswordToken = undefined
+      user.resetPasswordExpire = undefined
+
+      user.save()
+
+      next(new ErrorResponse('Email could not be send', 500))
+    }
+  } catch (error) {
+    next(error)
+  }
 }
 
-exports.resetPassword = (req, res, next) => {
-  res.send('Reset Password Route')
+exports.resetPassword = async (req, res, next) => {
+  // Compare token in URL params to hashed token
+  const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(req.params.resetToken)
+    .digest('hex')
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    })
+
+    if (!user) {
+      return next(new ErrorResponse('Invalid Token', 400))
+    }
+
+    user.password = req.body.password
+    user.resetPasswordToken = undefined
+    user.resetPasswordExpire = undefined
+
+    await user.save()
+
+    res.status(201).json({
+      success: true,
+      data: 'Password Updated Success',
+      token: user.getSignedJwtToken(),
+    })
+  } catch (err) {
+    next(err)
+  }
 }
 
 const sendToken = (user, statusCode, res) => {
-  const token = user.getSignedToken()
+  const token = user.getSignedJwtToken()
   res.status(statusCode).json({ success: true, token })
 }

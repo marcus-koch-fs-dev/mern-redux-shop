@@ -23,11 +23,13 @@
   },
   "homepage": "https://github.com/marcus-koch/mern-redux-shop#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.4.4",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.4"
+    "mongoose": "^5.12.4",
+    "nodemailer": "^6.6.0"
   },
   "devDependencies": {
     "concurrently": "^6.0.2",
