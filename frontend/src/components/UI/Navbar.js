@@ -32,6 +32,11 @@ const Navbar = ({ click }) => {
             Shop
           </Link>
         </li>
+        <li className="navbar__item">
+          <Link to="/login" className="login__link">
+            Login
+          </Link>
+        </li>
       </ul>
 
       <div className="navbar__hamburger-menu" onClick={click}>
