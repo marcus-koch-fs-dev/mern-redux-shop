@@ -8,11 +8,13 @@ import {
   getProductsReducers,
   getProductDetailsReducer,
 } from './reducer/productReducers'
+import { userLoginReducer } from './reducer/userReducers'
 
 const reducer = combineReducers({
   cart: cartReducer,
   getProducts: getProductsReducers,
   getProductDetails: getProductDetailsReducer,
+  userLogin: userLoginReducer,
 })
 
 // helps to make async in our actions

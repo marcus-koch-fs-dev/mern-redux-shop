@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
 import './LoginScreen.scss'
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../../redux/actions/userActions'
 
 const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  // const [error, setError] = useState('')
+  const dispatch = useDispatch()
+  const { loading, userData, error } = useSelector((state) => state.userLogin)
 
   useEffect(() => {
     if (localStorage.getItem('authToken')) {
@@ -16,30 +19,19 @@ const LoginScreen = ({ history }) => {
 
   const loginHandler = async (e) => {
     e.preventDefault()
-
-    const config = {
-      header: {
-        'Content-Type': 'application/json',
-      },
-    }
-
-    try {
-      const { data } = await axios.post(
-        '/api/auth/login',
-        { email, password },
-        config
-      )
-
-      localStorage.setItem('authToken', data.token)
-
-      history.push('/')
-    } catch (error) {
-      setError(error.response.data.error)
-      setTimeout(() => {
-        setError('')
-      }, 5000)
-    }
+    dispatch(login(email, password))
   }
+
+  useEffect(() => {
+    if (userData) {
+      history.push('/')
+    }
+  }, [userData, history])
+
+  // setError(error.response.data.error)
+  // setTimeout(() => {
+  //   setError('')
+  // }, 5000)
 
   return (
     <div className="login-screen">
@@ -76,9 +68,13 @@ const LoginScreen = ({ history }) => {
             tabIndex={2}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Login
-        </button>
+        {!userData ? (
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
+        ) : (
+          <button className="btn btn-primary">Logout</button>
+        )}
 
         <span className="login-screen__subtext">
           Don't have an account? <Link to="/register">Register</Link>
