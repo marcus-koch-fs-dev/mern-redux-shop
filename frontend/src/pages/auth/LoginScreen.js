@@ -22,6 +22,10 @@ const LoginScreen = ({ history }) => {
         dispatch(login(email, password))
     }
 
+    const logoutHandler=()=>{
+        // dispatach(logout action)
+    }
+
     useEffect(() => {
         if (userData) {
             history.push('/')
@@ -54,7 +58,7 @@ const LoginScreen = ({ history }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">
-                        Password:{' '}
+                        Password:
                         <Link
                             to="/forgotpassword"
                             className="login-screen__forgotpassword"
@@ -78,7 +82,7 @@ const LoginScreen = ({ history }) => {
                         Login
                     </button>
                 ) : (
-                    <button className="btn btn-primary">Logout</button>
+                    <button className="btn btn-primary" onClick={logoutHandler} >Logout</button>
                 )}
 
                 <span className="login-screen__subtext">
