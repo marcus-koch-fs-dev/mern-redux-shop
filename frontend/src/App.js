@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import './App.scss'
 
@@ -15,8 +16,11 @@ import ResetPassword from './pages/auth/ResetPassword'
 import Navbar from './components/UI/Navbar'
 import Backdrop from './components/UI/Backdrop'
 import SideDrawer from './components/UI/SideDrawer'
+import PrivateScreen from './pages/auth/PrivateScreen'
 
 function App() {
+    const { userData } = useSelector((state) => state.userLogin)
+    console.log('userData', userData)
     const [sideToggle, setSideToggle] = useState(false)
 
     return (
@@ -26,6 +30,13 @@ function App() {
             <Backdrop show={sideToggle} click={() => setSideToggle(false)} />
             <main>
                 <Switch>
+                    {userData && (
+                        <Route
+                            exact
+                            path="/"
+                            render={() => <PrivateScreen />}
+                        />
+                    )}
                     <Route exact path="/" component={HomeScreen} />
                     <Route exact path="/login" component={LoginScreen} />
                     <Route exact path="/register" component={RegisterScreen} />

@@ -32,3 +32,9 @@ export const login = (email, password) => async (dispatch) => {
         })
     }
 }
+
+export const userLogout = () => (dispatch) => {
+    dispatch({ type: actionTypes.USER_LOGOUT, payload: null })
+    localStorage.removeItem('authToken')
+    localStorage.removeItem('user')
+}

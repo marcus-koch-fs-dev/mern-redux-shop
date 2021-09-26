@@ -9,38 +9,38 @@ import Product from '../components/Product'
 import { getProducts as listProducts } from '../redux/actions/productActions'
 
 const HomeScreen = () => {
-  const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-  const getProducts = useSelector((state) => state.getProducts)
-  const { loading, products, error } = getProducts
+    const getProducts = useSelector((state) => state.getProducts)
+    const { loading, products, error } = getProducts
 
-  useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch])
+    useEffect(() => {
+        dispatch(listProducts())
+    }, [dispatch])
 
-  return (
-    <div className="homescreen">
-      <h2 className="homescreen__title">Latest Product</h2>
-      <div className="homescreen__product">
-        {loading ? (
-          <h2>Loading...</h2>
-        ) : error ? (
-          <h2>{error}</h2>
-        ) : (
-          products.map((product) => (
-            <Product
-              key={product._id}
-              productId={product._id}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              imageUrl={product.imageUrl}
-            />
-          ))
-        )}
-      </div>
-    </div>
-  )
+    return (
+        <div className="homescreen">
+            <h2 className="homescreen__title">Latest Product</h2>
+            <div className="homescreen__product">
+                {loading ? (
+                    <h2>Loading...</h2>
+                ) : error ? (
+                    <h2>{error}</h2>
+                ) : (
+                    products.map((product) => (
+                        <Product
+                            key={product._id}
+                            productId={product._id}
+                            name={product.name}
+                            description={product.description}
+                            price={product.price}
+                            imageUrl={product.imageUrl}
+                        />
+                    ))
+                )}
+            </div>
+        </div>
+    )
 }
 
 export default HomeScreen

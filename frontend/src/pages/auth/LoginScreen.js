@@ -9,25 +9,22 @@ const LoginScreen = ({ history }) => {
     const [password, setPassword] = useState('')
     // const [error, setError] = useState('')
     const dispatch = useDispatch()
-    const { loading, userData, error } = useSelector((state) => state.userLogin)
+    const { userData, error } = useSelector((state) => state.userLogin)
 
-    useEffect(() => {
-        if (localStorage.getItem('authToken')) {
-            history.push('/')
-        }
-    }, [history])
+    // useEffect(() => {
+    //     if (localStorage.getItem('authToken')) {
+    //         history.push('/')
+    //     }
+    // }, [history])
 
     const loginHandler = async (e) => {
         e.preventDefault()
         dispatch(login(email, password))
     }
 
-    const logoutHandler=()=>{
-        // dispatach(logout action)
-    }
-
     useEffect(() => {
         if (userData) {
+            // console.log('history', userData)
             history.push('/')
         }
     }, [userData, history])
@@ -41,9 +38,7 @@ const LoginScreen = ({ history }) => {
         <div className="login-screen">
             <form onSubmit={loginHandler} className="login-screen__form">
                 <h3 className="login-screen__title">Login</h3>
-                {userData && (
-                    <span className="error-message">{userData.error}</span>
-                )}
+                {error && <span className="error-message">{error}</span>}
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input
@@ -77,12 +72,10 @@ const LoginScreen = ({ history }) => {
                         tabIndex={2}
                     />
                 </div>
-                {!userData ? (
+                {!userData && (
                     <button type="submit" className="btn btn-primary">
                         Login
                     </button>
-                ) : (
-                    <button className="btn btn-primary" onClick={logoutHandler} >Logout</button>
                 )}
 
                 <span className="login-screen__subtext">
